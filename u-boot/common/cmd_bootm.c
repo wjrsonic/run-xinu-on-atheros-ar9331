@@ -152,7 +152,7 @@ image_header_t header;
 ulong load_addr = CFG_LOAD_ADDR;		/* Default Load Address */
 
 //#define CONFIG_LZMA 1 without LZMA support, commented by tiger 20091123
-#if 0	/* changed by lqm, 18Jan08 we use tp-tag */
+#if 1	/* changed by lqm, 18Jan08 we use tp-tag */
 int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 {
 	ulong	iflag;
