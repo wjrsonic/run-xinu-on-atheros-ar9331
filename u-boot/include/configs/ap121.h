@@ -311,9 +311,10 @@
 #endif /* #ifndef COMPRESSED_UBOOT */
 
 #define CONFIG_CMD_HTTPD 1
-#define CONFIG_EXTRA_ENV_SETTINGS                   \
-    "ram_addr=0x80060000\0"                         \
-    "kernel_addr=0x9f020000\0"         \
+#define CONFIG_EXTRA_ENV_SETTINGS						\
+	"ram_addr=0x80060000\0"								\
+	"kernel_addr=0x9f020000\0"							\
+	"xinu=tftp 0x80060000 xinu.boot;bootm 0x80060000\0"	\
 	""
 
 
