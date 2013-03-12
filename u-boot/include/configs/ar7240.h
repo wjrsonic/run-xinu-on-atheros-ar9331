@@ -12,7 +12,7 @@
 /* lsz add CONFIG_AUTOBOOT_STOP_STR 090223 */
 #define CONFIG_AUTOBOOT_KEYED
 #define CONFIG_AUTOBOOT_PROMPT   "Autobooting in %d seconds\n"
-#define CONFIG_AUTOBOOT_STOP_STR "tpl"
+#define CONFIG_AUTOBOOT_STOP_STR "x"
 #undef  CONFIG_AUTOBOOT_DELAY_STR
 #define DEBUG_BOOTKEYS       0
 
