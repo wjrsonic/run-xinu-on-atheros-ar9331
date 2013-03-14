@@ -13,7 +13,7 @@ export NEW_DDR_TAP_CAL=1
 #export PRODUCTOR_CPU_350=1
 #export PRODUCTOR_CPU_300=1
 
-all: decompress_toolchain uboot
+all: decompress_toolchain uboot_build xinu_build
 	@echo tuboot.bin size: `wc -c < $(BUILD_TOPDIR)/bin/tuboot.bin`
 	@if [ "`wc -c < $(BUILD_TOPDIR)/bin/tuboot.bin`" -gt "$(MAX_UBOOT_SIZE)" ]; then \
 			echo "####################ERROR####################" \
@@ -25,19 +25,25 @@ decompress_toolchain:
 	make -C $(BUILD_TOPDIR)/toolchain/
 
 
-uboot:
+uboot_build:
 	cd $(BUILD_TOPDIR)/u-boot/ && $(MAKECMD) tl-wr703n_config
 	cd $(BUILD_TOPDIR)/u-boot/ && $(MAKECMD) ENDIANNESS=-EB V=1 all
 	cp $(BUILD_TOPDIR)/u-boot/tuboot.bin $(BUILD_TOPDIR)/bin
 	$(BUILD_TOPDIR)/u-boot/tools/mkhttpdimage -d $(BUILD_TOPDIR)/bin/tuboot.bin $(BUILD_TOPDIR)/bin/tlr.bin
 	cat $(BUILD_TOPDIR)/bin/tuboot.bin $(BUILD_TOPDIR)/bin/tlr.bin >$(BUILD_TOPDIR)/bin/wr703n_uboot_with_tlr.bin
 
-clean:
+xinu_build:
+	make -C $(BUILD_TOPDIR)/xinu/compile/
+
+xinu_clean:
+	make -C $(BUILD_TOPDIR)/xinu/compile/ clean
+
+uboot_clean:
 	cd $(BUILD_TOPDIR)/u-boot/ && $(MAKECMD) clean
 	rm -f $(BUILD_TOPDIR)/bin/*
 	
 
-clean_all:
+clean_all: xinu_clean
 	cd $(BUILD_TOPDIR)/u-boot/ && $(MAKECMD) distclean
 	rm -f $(BUILD_TOPDIR)/bin/*
 	make -C $(BUILD_TOPDIR)/toolchain/ clean
