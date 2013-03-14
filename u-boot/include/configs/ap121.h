@@ -211,7 +211,7 @@
  */
 #define CFG_INIT_SP_OFFSET	0x1000
 
-#ifndef COMPRESSED_UBOOT
+#if 1 //#ifndef COMPRESSED_UBOOT
 #define	CFG_ENV_IS_IN_FLASH    1
 #undef CFG_ENV_IS_NOWHERE  
 #else
@@ -220,13 +220,13 @@
 #endif /* #ifndef COMPRESSED_UBOOT */
 
 /* Address and size of Primary Environment Sector	*/
-#define CFG_ENV_ADDR		0x9f040000
+#define CFG_ENV_ADDR		0x9f020000
 #define CFG_ENV_SIZE		0x10000
 
 #if (FLASH_SIZE == 8)
     #define CONFIG_BOOTCOMMAND "bootm 0x9f020000"
 #elif (FLASH_SIZE == 4)
-    #define CONFIG_BOOTCOMMAND "bootm 0x9f020000"
+    #define CONFIG_BOOTCOMMAND "bootm 0x9f030000"
 #else
     #ifdef VXWORKS_UBOOT
        #define CONFIG_BOOTCOMMAND "bootm 0x9f050000"
@@ -307,13 +307,13 @@
 #define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_MII | CFG_CMD_ELF))
 #else
 /* #define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_MII)) */
-#define CONFIG_COMMANDS (CFG_CMD_LOADB | CFG_CMD_MEMORY | CFG_CMD_FLASH | CFG_CMD_NET | CFG_CMD_RUN)
+#define CONFIG_COMMANDS (CFG_CMD_LOADB | CFG_CMD_MEMORY | CFG_CMD_FLASH | CFG_CMD_NET | CFG_CMD_RUN | CFG_CMD_ENV | CFG_CMD_FLASH)
 #endif /* #ifndef COMPRESSED_UBOOT */
 
 #define CONFIG_CMD_HTTPD 1
 #define CONFIG_EXTRA_ENV_SETTINGS						\
 	"ram_addr=0x80060000\0"								\
-	"kernel_addr=0x9f020000\0"							\
+	"kernel_addr=0x9f030000\0"							\
 	"xinu=tftp 0x80060000 xinu.boot;bootm 0x80060000\0"	\
 	""
 
