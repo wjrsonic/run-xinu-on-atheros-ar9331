@@ -315,6 +315,7 @@
 	"ram_addr=0x80060000\0"								\
 	"kernel_addr=0x9f030000\0"							\
 	"xinu=tftp 0x80060000 xinu.boot;bootm 0x80060000\0"	\
+	"fxinu=tftp 0x80060000 xinu.boot;erase 0x9f030000 +0x50000;cp.b 0x80060000 0x9f030000 0x50000\0" \
 	""
 
 
