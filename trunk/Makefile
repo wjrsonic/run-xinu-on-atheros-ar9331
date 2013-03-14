@@ -43,8 +43,9 @@ uboot_clean:
 	rm -f $(BUILD_TOPDIR)/bin/*
 	
 
-clean_all: xinu_clean
+clean_all:
 	cd $(BUILD_TOPDIR)/u-boot/ && $(MAKECMD) distclean
 	rm -f $(BUILD_TOPDIR)/bin/*
 	make -C $(BUILD_TOPDIR)/toolchain/ clean
+	make -C $(BUILD_TOPDIR)/xinu/compile/ realclean
 
