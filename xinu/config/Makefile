@@ -30,10 +30,10 @@ y.tab.c:	config.y
 clean:
 		rm -f ${CONFIG} lex.yy.c y.tab.c
 
-conf.h:		$(CONFIG) Configuration
+conf.h:		$(CONFIG) Configuration_debug
 		./$(CONFIG)
 
-conf.c:		$(CONFIG) Configuration
+conf.c:		$(CONFIG) Configuration_debug
 		./$(CONFIG)
 
 install:	conf.h conf.c
