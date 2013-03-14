@@ -16,7 +16,7 @@ extern	int	yyleng;
 #define	CONFIGC	 "conf.c"		/* name of .c output     */
 #define CONFIGH	 "conf.h"		/* name of .h output     */
 #define	CONFHREF "<conf.h>"		/* how conf.h referenced */
-#define	CONFIGIN "Configuration"	/* name of input file    */
+#define	CONFIGIN "Configuration_debug"	/* name of input file    */
 #define	CONFMAXNM 24			/* max length of strings */
 
 FILE	*confc;
