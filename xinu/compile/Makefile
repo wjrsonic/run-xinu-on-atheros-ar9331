@@ -2,8 +2,8 @@
 #  Makefile for the Xinu operating system.
 #
 
-MIPS_ROOT = /p/xinu/mips-dev/bin
-MIPS_PREFIX = mips-
+MIPS_ROOT = $(BUILD_TOPDIR)/toolchain/OpenWrt-Toolchain-ar71xx-for-mips_r2-gcc-4.6-linaro_uClibc-0.9.33/toolchain-mips_r2_gcc-4.6-linaro_uClibc-0.9.33/bin/
+MIPS_PREFIX = mips-openwrt-linux-uclibc-
 
 COMPILER_ROOT = ${MIPS_ROOT}/${MIPS_PREFIX}
 
