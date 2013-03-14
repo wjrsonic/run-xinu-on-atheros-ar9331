@@ -23,7 +23,7 @@ CFLAGS = -O0 -Wall -Wstrict-prototypes -Wno-trigraphs		\
          ${INCLUDE} -c
 
 # Assembler flags
-ASFLAGS  = ${INCLUDE} -march=mips32r2 -mips32r2
+ASFLAGS  = ${INCLUDE} -march=mips32r2 -mips32r2 -mno-abicalls
 
 # Loader flags
 LDFLAGS   = -static --gc-sections -T ld.script
