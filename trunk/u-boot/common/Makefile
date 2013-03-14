@@ -40,7 +40,7 @@ COBJS	= main.o circbuf.o \
 	  cmd_nand.o cmd_net.o cmd_nvedit.o \
 	  cmd_reginfo.o cmd_spi.o \
 	  command.o console.o devices.o dlmalloc.o docecc.o \
-	  environment.o env_common.o \
+	  environment.o env_common.o env_flash.o\
 	  env_nowhere.o \
 	  exports.o \
 	  flash.o \

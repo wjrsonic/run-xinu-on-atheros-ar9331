@@ -456,7 +456,7 @@ int flash_sect_erase (ulong addr_first, ulong addr_last)
 }
 #endif
 
-#ifndef COMPRESSED_UBOOT
+#if 1 //#ifndef COMPRESSED_UBOOT
 int do_protect (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 {
 	flash_info_t *info;
