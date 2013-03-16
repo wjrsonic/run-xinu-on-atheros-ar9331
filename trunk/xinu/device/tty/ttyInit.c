@@ -53,18 +53,11 @@ devcall	ttyInit(
 	uptr = (struct uart_csreg *)devtab[CONSOLE].dvcsr;
 
 	/* Set baud rate */
-
-	uptr->lcr = UART_LCR_8N1;	/* 8 bit char, No Parity, 1 Stop*/
-	uptr->fcr = 0x00;		/* Disable FIFO for now		*/
-	/* OUT2 value is used to control the onboard interrupt tri-state*/
-	/* buffer. It should be set high to generate interrupts		*/
-	uptr->mcr = UART_MCR_OUT2;	/* Turn on user-defined OUT2	*/
+	/* Not set the band rate again,rely the code in u-boot */
 
 	/* Enable interrupts */
-
-	/* Enable UART FIFOs, clear and set interrupt trigger level	*/
-	uptr->fcr = UART_FCR_EFIFO | UART_FCR_RRESET
-        		| UART_FCR_TRESET | UART_FCR_TRIG2;
+	uptr->uart_cs |= UART_HOST_INT_EN;
+	uptr->uart_int_en = UART_RX_VALID_INT_EN;
 
 	/* Register the interrupt handler for the dispatcher */
 
