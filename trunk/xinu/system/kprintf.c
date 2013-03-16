@@ -9,26 +9,22 @@
  */
 syscall kputc(byte c)
 {
-    int status, irmask;
+    int uart_data;
     volatile struct uart_csreg *regptr;
-	struct	dentry	*devptr;
+    struct  dentry  *devptr;
 
-	devptr = (struct dentry *) &devtab[CONSOLE];
+    devptr = (struct dentry *) &devtab[CONSOLE];
     regptr = (struct uart_csreg *)devptr->dvcsr;
 
-    irmask = regptr->ier;       /* Save UART interrupt state.   */
-    regptr->ier = 0;            /* Disable UART interrupts.     */
+    do {
+        uart_data = regptr->uart_data;
+    }while((uart_data & UART_TX_CSR) == 0);
 
-    do                          /* Wait for transmitter         */
-    {
-        status = regptr->lsr;
-    }
-    while ((status & UART_LSR_TEMT) != UART_LSR_TEMT);
+    uart_data = c;
+    uart_data |= UART_TX_CSR;
 
-    /* Send character. */
-    regptr->thr = c;
+    regptr->uart_data = uart_data;
 
-    regptr->ier = irmask;       /* Restore UART interrupts.     */
     return c;
 }
 
@@ -38,28 +34,26 @@ syscall kputc(byte c)
  */
 syscall kgetc(void)
 {
-    int irmask;
+    int uart_data;
     volatile struct uart_csreg *regptr;
     byte c;
-	struct	dentry	*devptr;
+    struct  dentry  *devptr;
 
-	devptr = (struct dentry *) &devtab[CONSOLE];
+    devptr = (struct dentry *) &devtab[CONSOLE];
     regptr = (struct uart_csreg *)devptr->dvcsr;
 
-    irmask = regptr->ier;       /* Save UART interrupt state.   */
-    regptr->ier = 0;            /* Disable UART interrupts.     */
+    uart_data = regptr->uart_data;
+    if( uart_data & UART_RX_CSR )
+    {
+        c = uart_data & 0xff;
+        uart_data = UART_RX_CSR;
 
-    while (0 == (regptr->lsr & UART_LSR_DR))
-    {                           /* Do Nothing */
+        regptr->uart_data = uart_data;      
     }
-
-    /* read character from Receive Holding Register */
-    c = regptr->rbr;
-    regptr->ier = irmask;       /* Restore UART interrupts.     */
     return c;
 }
 
-extern	void	_doprnt(char *,int (*)(int), ...);
+extern  void    _doprnt(char *,int (*)(int), ...);
 
 /*------------------------------------------------------------------------
  *  kprintf - kernel printf using unbuffered, polled output to CONSOLE

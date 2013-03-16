@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 	NetData.ipvalid = FALSE;
 	retval = getlocalip();
 	if (retval == SYSERR) {
-		panic("Error: could not obtain an IP address\n\r");
+		kprintf("Error: could not obtain an IP address\n\r");
 	} else {
 	    kprintf("IP address is %d.%d.%d.%d   %08x\n\r",
 		(retval>>24)&0xff, (retval>>16)&0xff, (retval>>8)&0xff,
