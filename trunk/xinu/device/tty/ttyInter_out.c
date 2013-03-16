@@ -22,7 +22,7 @@ void	ttyInter_out(
 	/* If output is currently held, turn off output interrupts */
 
 	if (typtr->tyoheld) {
-		uptr->ier = UART_IER_ERBFI | UART_IER_ELSI;
+		uptr->uart_int_en &= (~UART_TX_EMPTY_INT_EN);
 		return;
 	}
 
@@ -30,7 +30,7 @@ void	ttyInter_out(
 
 	if ( (typtr->tyehead == typtr->tyetail) &&
 	     (semcount(typtr->tyosem) >= TY_OBUFLEN) ) {
-		uptr->ier = UART_IER_ERBFI | UART_IER_ELSI;
+		uptr->uart_int_en &= (~UART_TX_EMPTY_INT_EN);
 		return;
 	}
 	
@@ -42,7 +42,7 @@ void	ttyInter_out(
 	/* nonempty, xmit chars from the echo queue		*/
 
 	while ( (uspace>0) &&  typtr->tyehead != typtr->tyetail) {
-		uptr->buffer = *typtr->tyehead++;
+		uptr->uart_data = ((*typtr->tyehead++) | UART_TX_CSR);
 		if (typtr->tyehead >= &typtr->tyebuff[TY_EBUFLEN]) {
 			typtr->tyehead = typtr->tyebuff;
 		}
@@ -55,7 +55,7 @@ void	ttyInter_out(
 	ochars = 0;
 	avail = TY_OBUFLEN - semcount(typtr->tyosem);
 	while ( (uspace>0) &&  (avail > 0) ) {
-		uptr->buffer = *typtr->tyohead++;
+		uptr->uart_data = ((*typtr->tyohead++) | UART_TX_CSR);
 		if (typtr->tyohead >= &typtr->tyobuff[TY_OBUFLEN]) {
 			typtr->tyohead = typtr->tyobuff;
 		}

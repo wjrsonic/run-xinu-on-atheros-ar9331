@@ -18,7 +18,9 @@ void	ttyInter_in (
 	char	ch;			/* next char from device	*/
 	int32	avail;			/* chars available in buffer	*/
 
-	ch = uptr->buffer;		/* extract char. from device	*/
+	ch = uptr->uart_data;		/* extract char. from device	*/
+
+	uptr->uart_data = UART_RX_CSR;
 
 	/* Compute chars available */
 
