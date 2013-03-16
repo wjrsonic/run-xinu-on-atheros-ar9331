@@ -29,6 +29,9 @@ y.tab.c:	config.y
 
 clean:
 		rm -f ${CONFIG} lex.yy.c y.tab.c
+		rm -f conf.h conf.c
+		rm -f ../include/conf.h
+		rm -f ../system/conf.c
 
 conf.h:		$(CONFIG) Configuration_debug
 		./$(CONFIG)
