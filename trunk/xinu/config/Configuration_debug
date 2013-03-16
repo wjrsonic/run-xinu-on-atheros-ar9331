@@ -40,6 +40,23 @@ eth:
 		-r ethRead	-w ethWrite	-n ethControl
 		-intr ethInterrupt
 
+/* type of ram disk (used for debugging) */
+
+ram:
+	on mem
+		-i ramInit	-o ramOpen	-c ramClose
+		-r ramRead	-g ioerr	-p ioerr
+		-w ramWrite	-s ioerr	-n ioerr
+		-intr ionull
+
+/* type of namespace device */
+nam:
+	on top
+		-i namInit	-o namOpen	-c ioerr
+		-r ioerr	-g ioerr	-p ioerr
+		-w ioerr	-s ioerr	-n ioerr
+		-intr ioerr
+
 %%
 /* Actual device declarations that each give the name of a device that	*/
 /*   will be present in the system					*/
@@ -55,6 +72,14 @@ eth:
    /* Physical Ethernet (raw packet transfer) */
 
    ETHER0 is eth   on ag71xx   csr 0xB9000000 irq 4
+
+   /* Define a RAM disk for testing */
+
+   TESTDISK is ram on mem
+
+   /* Define a namespace device */
+
+   NAMESPACE is nam on top
 
 %%
 
