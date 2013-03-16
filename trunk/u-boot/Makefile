@@ -2408,7 +2408,7 @@ clean:
 	      examples/mem_to_mem_idma2intr examples/82559_eeprom \
 	      examples/smc91111_eeprom \
 	      examples/test_burst
-	@rm -f tools/img2srec tools/mkimage tools/envcrc tools/gen_eth_addr
+	@rm -f tools/img2srec tools/mkimage tools/mkhttpdimage tools/envcrc tools/gen_eth_addr
 	@rm -f tools/mpc86x_clk tools/ncb
 	@rm -f tools/easylogo/easylogo tools/bmp_logo
 	@rm -f tools/gdb/astest tools/gdb/gdbcont tools/gdb/gdbsend
@@ -2421,7 +2421,7 @@ clean:
 ifeq ($(COMPRESSED_UBOOT),1)
 	@rm -f lib_bootstrap/*.o
 	@rm -f lib_bootstrap/*.a
-	@rm -f bootstrap bootstrap.bin tuboot.bin u-boot.lzimg
+	@rm -f bootstrap bootstrap.bin tuboot.bin u-boot.lzimg bootstrap.map u-boot.bin.lzma
 endif
 
 clobber:	clean
