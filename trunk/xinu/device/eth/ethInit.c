@@ -95,7 +95,16 @@ devcall	ethInit (
 	ethptr->ovrrun = 0;
 	ethptr->rxOffset = ETH_PKT_RESERVE;
 
+#if 0
 	colon2mac(nvramGet("et0macaddr"), ethptr->devAddress);
+#else
+	ethptr->devAddress[0] = 0x00;
+	ethptr->devAddress[1] = 0x01;
+	ethptr->devAddress[2] = 0x02;
+	ethptr->devAddress[3] = 0xba;
+	ethptr->devAddress[4] = 0xdb;
+	ethptr->devAddress[5] = 0xad;
+#endif
 	ethptr->addressLength = ETH_ADDR_LEN;
 
 	/* Reset the device */
