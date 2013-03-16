@@ -36,6 +36,7 @@ UBOOTOPTS = -A mips -O linux -T kernel -a 0x80010000 -C none -e 0x80010000 -n 'X
 
 xinu.boot: xinu.bin ${MKIMAGE}
 	${MKIMAGE} ${UBOOTOPTS} -d xinu.bin $@
+	cp xinu.boot ../../bin/
 
 xinu.bin: xinu.elf
 	${OBJCOPY} -O binary $^ $@
