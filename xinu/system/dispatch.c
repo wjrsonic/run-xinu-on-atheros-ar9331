@@ -63,7 +63,6 @@ void	dispatch(
 			irqcode = irqcode >> 1;
 		}
 		*miscStat = 0;
-		//irqcode = *miscStat & RST_MISC_IRQ_MASK;
 	}
 
 	/* Check for registered interrupt handler */
