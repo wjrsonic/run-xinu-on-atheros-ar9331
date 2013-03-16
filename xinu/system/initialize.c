@@ -169,8 +169,9 @@ static	void	sysinit(void)
 	clkinit();
 
 	/* Initialize non-volative RAM storage */
-
+#if 0
 	nvramInit();
+#endif
 
 	/* Initialize devices */
 
