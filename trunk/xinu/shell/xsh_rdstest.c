@@ -16,6 +16,7 @@ shellcmd xsh_rdstest(int nargs, char *args[])
 	char	buff[2048];
 	char	buff2[2048];
 
+#if 0
 	retval = open(RDISK,dskname,"rw");
 
 	if (retval < 0) {
@@ -114,5 +115,6 @@ shellcmd xsh_rdstest(int nargs, char *args[])
 	} else {
 		kprintf("Sadly  :-( byte %d differs!!!\r\n", i);
 	}
+#endif
 	return 0;
 }
