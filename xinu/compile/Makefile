@@ -60,6 +60,9 @@ export
 xinu.elf: ${COMP_OBJ} ../lib/libxc.a
 	${LD} -o $@ ${LDFLAGS} $^
 
+xinu_config:
+	cd ../config;make;make install
+
 vdump:
 	@echo
 	@echo "COMP_OBJ is $(COMP_OBJ)"
@@ -71,6 +74,8 @@ objects: ${COMP_OBJ}
 
 clean:
 	rm -f *.o ${COMP_OBJ}
+	cd ../lib/libxc; make clean
+	cd ../config;make clean
 	rm -f xinu.boot xinu.bin xinu.elf
 	rm -rf ${DOCS}
 
